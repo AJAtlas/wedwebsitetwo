@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wilderness — Environment Design Studio</title>
+  <title>Wilderness Environment Design</title>
 
-  <!-- Editorial Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -31,32 +28,88 @@
       letter-spacing:-0.5px;
     }
 
-    h1{font-size:3rem;}
-    h2{font-size:2rem;margin-bottom:20px;}
+    h1{font-size:3.2rem;}
+    h2{font-size:2.2rem;margin-bottom:20px;}
 
-    section{padding:100px 0;}
-
+    section{padding:50px 0;position:relative;}
     .container-narrow{max-width:900px;margin:auto;}
 
     /* NAV */
     .navbar{
       padding:20px 0;
-      background:transparent;
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid #eee;
     }
 
-    .navbar-brand{
-      font-weight:600;
-      letter-spacing:1px;
+    .nav-link{position:relative;}
+    .nav-link::after{
+      content:"";
+      position:absolute;
+      width:0%;height:1px;bottom:0;left:0;
+      background:#000;transition:0.3s;
     }
+    .nav-link:hover::after{width:100%;}
 
-    .nav-link{
-      color:#333 !important;
-      font-size:0.9rem;
-    }
-
-    /* HERO */
+    /* HERO SLIDESHOW */
     .hero{
-      padding:160px 0 100px;
+      position:relative;
+      padding:180px 0 120px;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      animation:heroSlide 24s infinite ease-in-out;
+      z-index:0;
+      transform:scale(1.05);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(rgba(246,247,245,0.85), rgba(246,247,245,0.95));
+      z-index:1;
+    }
+
+    .hero .container{
+      position:relative;
+      z-index:2;
+    }
+
+    @keyframes heroSlide{
+      0%{
+        background-image:url('assets/img/portfolio/portfolio-1.jpg');
+        transform:scale(1.05);
+      }
+      30%{
+        background-image:url('assets/img/portfolio/portfolio-1.jpg');
+        transform:scale(1.1);
+      }
+      33%{
+        background-image:url('assets/img/portfolio/portfolio-2.jpg');
+        transform:scale(1.05);
+      }
+      63%{
+        background-image:url('assets/img/portfolio/portfolio-2.jpg');
+        transform:scale(1.1);
+      }
+      66%{
+        background-image:url('assets/img/portfolio/portfolio-3.jpg');
+        transform:scale(1.05);
+      }
+      96%{
+        background-image:url('assets/img/portfolio/portfolio-3.jpg');
+        transform:scale(1.1);
+      }
+      100%{
+        background-image:url('assets/img/portfolio/portfolio-1.jpg');
+      }
     }
 
     .hero p{
@@ -68,73 +121,83 @@
 
     /* DIVIDER */
     .divider{
-      height:1px;
-      background:#ddd;
-      margin:60px 0;
+      height:1px;background:#ddd;margin:80px 0;position:relative;
+    }
+    .divider::after{
+      content:"";width:60px;height:2px;background:var(--accent);
+      position:absolute;left:0;top:-1px;
     }
 
-    /* GRID TEXT */
+    /* GRID */
     .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:60px;
+      display:grid;grid-template-columns:1fr 1fr;gap:80px;
     }
 
     /* PORTFOLIO */
     .portfolio-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    }
+    .portfolio-grid img{
+      width:100%;transition:0.4s;
+    }
+    .portfolio-grid img:hover{
+      transform:scale(1.03);opacity:0.9;
     }
 
-    .portfolio-grid img{
-      width:100%;
-      height:auto;
-      display:block;
+    /* SECTION LABEL */
+    .section-label{
+      font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;
+      color:var(--accent);margin-bottom:10px;
     }
 
     /* CONTACT */
-    input,textarea{
-      border:none;
-      border-bottom:1px solid #ccc;
-      border-radius:0;
-      padding:10px 0;
-      background:transparent;
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      border:1px solid #ddd;
+      padding:12px;
+      margin-top:15px;
+      background:#fff;
     }
 
-    button{
+    .contact-form textarea{resize:none;}
+
+    .contact-form button{
       margin-top:20px;
-      background:none;
-      border:1px solid #000;
-      padding:10px 25px;
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 30px;
       transition:0.3s;
     }
 
-    button:hover{
-      background:#000;
-      color:#fff;
-    }
+    .contact-form button:hover{opacity:0.85;}
 
     footer{
-      padding:60px 0;
-      font-size:0.85rem;
-      color:#666;
+      padding:60px 0;font-size:0.85rem;color:#666;
     }
 
     @media(max-width:768px){
       .two-col{grid-template-columns:1fr;}
       .portfolio-grid{grid-template-columns:1fr;}
-      h1{font-size:2.2rem;}
+      h1{font-size:2.3rem;}
     }
   </style>
 </head>
 
+<script>
+  document.addEventListener("contextmenu", function (e) {
+    if (e.target.tagName === "IMG") {
+      e.preventDefault();
+    }
+  });
+</script>
+
 <body>
 
-<!-- NAV -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">WILDERNESS</a>
+    <a class="navbar-brand" href="#"><b>WILDERNESS</b></a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -142,39 +205,36 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
-        <li class="nav-item"><a class="nav-link" href="#approach">Approach</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container container-narrow">
-    <h1>Designing immersive environments with clarity, depth and intent.</h1>
+    <div class="section-label">Wilderness Environment Design</div>
+    <h1>Designing immersive environments for your next project.</h1>
     <p>
-      Wilderness is a UK-based studio specialising in voxel landscapes, cinematic environments and worldbuilding. We work with studios, agencies and creators to produce meaningful digital worlds.
+      Wilderness is a UK-based environment design studio specialising in voxel landscapes and 3D environments. Since 2015, our products have been used in video production, educational material, gaming, and more.
     </p>
   </div>
 </section>
 
 <div class="container"><div class="divider"></div></div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="container container-narrow">
     <div class="two-col">
       <div>
-        <h2>About</h2>
+        <div class="section-label">01 — About</div>
+        <h2>Studio Overview</h2>
       </div>
       <div>
-        <p>
-          Founded in 2015, Wilderness has delivered over 200 commercial projects across games, film and digital media. Our work focuses on atmosphere, realism and narrative-driven design.
-        </p>
-        <p>
-          We prioritise clarity of communication, structured workflows and long-term collaboration with our partners.
-        </p>
+        <p>Founded in 2015, Wilderness has delivered over 200 commercial projects to clients across the globe.</p>
+        <p>We specialise in atmospheric voxel terrain that makes you <i>feel</i> that you are in the scene.</p>
+        <p>Our work excels in environmental storytelling to make the world itself become a character.</p>
       </div>
     </div>
   </div>
@@ -182,40 +242,40 @@
 
 <div class="container"><div class="divider"></div></div>
 
-<!-- WORK -->
 <section id="work">
   <div class="container">
     <div class="container-narrow">
-      <h2>Selected Work</h2>
-      <p style="color:var(--muted)">
-        A curated selection of environments developed over the past decade.
-      </p>
+      <div class="section-label">02 — Portfolio</div>
+      <h2>Selected Projects</h2>
     </div>
 
     <div class="portfolio-grid mt-5">
       <img src="assets/img/portfolio/portfolio-1.jpg">
       <img src="assets/img/portfolio/portfolio-2.jpg">
       <img src="assets/img/portfolio/portfolio-3.jpg">
+      <img src="assets/img/portfolio/portfolio-4.jpg">
+      <img src="assets/img/portfolio/portfolio-5.jpg">
+      <img src="assets/img/portfolio/portfolio-6.jpg">
+      <img src="assets/img/portfolio/portfolio-7.jpg">
+      <img src="assets/img/portfolio/portfolio-8.jpg">
+      <img src="assets/img/portfolio/portfolio-9.jpg">
     </div>
   </div>
 </section>
 
 <div class="container"><div class="divider"></div></div>
 
-<!-- APPROACH -->
-<section id="approach">
+<section id="services">
   <div class="container container-narrow">
     <div class="two-col">
       <div>
-        <h2>Approach</h2>
+        <div class="section-label">03 — Services</div>
+        <h2>Our Offerings</h2>
       </div>
       <div>
-        <p>
-          Our process combines technical expertise with artistic direction. Each project begins with research and concept development, followed by structured production and iterative refinement.
-        </p>
-        <p>
-          We maintain close communication with our clients throughout, ensuring each environment aligns with both creative vision and technical requirements.
-        </p>
+        <p>We currently offer a bespoke environment design service with full commercial rights provided.</p>
+        <p>Alongside our premium design services, we also offer environment concept art services, consulting services, and worldbuilding services.</p>
+        <p>We keep you updated at every stage of the process, regardless of service. Our customer support operates in English, French, Spanish, and Ukrainian.</p>
       </div>
     </div>
   </div>
@@ -223,32 +283,29 @@
 
 <div class="container"><div class="divider"></div></div>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container container-narrow">
-    <h2>Contact</h2>
-    <p style="color:var(--muted)">For enquiries, collaborations or project discussions, please get in touch.</p>
+    <div class="section-label">04 — Contact</div>
+    <h2>Get in Touch</h2>
 
-    <form>
-      <div class="row">
-        <div class="col-md-6">
-          <input placeholder="Name">
-        </div>
-        <div class="col-md-6">
-          <input placeholder="Email">
-        </div>
-      </div>
-      <textarea rows="4" placeholder="Message" class="mt-4"></textarea>
-      <button>Submit</button>
-    </form>
+    For enquiries, please contact:<br><br>
+    <b>Email:</b> enquiries@wildernessenvironmentdesign.com<br><br>
+
+    Our working hours are Monday to Friday, 08:00 to 19:00, excluding the Easter and Christmas period.
+
   </div>
 </section>
 
 <footer>
   <div class="container text-center">
-    © 2026 Wilderness Environment Design — All rights reserved.
+    © 2026 Wilderness Environment Design
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
